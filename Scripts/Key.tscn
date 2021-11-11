@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Key_B_02.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Scripts/Key.gd" type="Script" id=2]
+[ext_resource path="res://Assets/keyB_tx.bmp" type="Texture" id=3]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 3 )
+metallic = 0.32
+metallic_specular = 0.3
+roughness = 0.4
+emission_enabled = true
+emission = Color( 0.964706, 0.709804, 0.0313726, 1 )
+emission_energy = 2.55
+emission_operator = 1
+emission_on_uv2 = false
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1, 1, 0.394157 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "Spin"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Key_B_02:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.00829146, 0.665928, 0.00839537 ), Vector3( -0.008, 0.625, 0.008 ), Vector3( -0.00829146, 0.665928, 0.00839537 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Key_B_02:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 90 ), Vector3( 0, 180, 90 ), Vector3( 0, 360, 90 ) ]
+}
+
+[node name="Key" type="Area"]
+script = ExtResource( 2 )
+
+[node name="Key_B_02" type="MeshInstance" parent="."]
+transform = Transform( -6.11959e-09, -0.14, 0, 0.14, -6.11959e-09, 0, 0, 0, 0.14, -0.00829146, 0.665928, 0.00839537 )
+material_override = SubResource( 1 )
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.277485, 0, 0, 0, 0.62269, 0, 0, 0, 1, -0.0162027, 0.720562, -0.0017674 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Spin = SubResource( 3 )
+
+[connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]
+[connection signal="ready" from="AnimationPlayer" to="." method="_on_AnimationPlayer_ready"]

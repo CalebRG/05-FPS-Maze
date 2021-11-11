@@ -1,0 +1,100 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Assets/Wall_Torch.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Assets/Wall_Torch_2K_Albedo.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Wall_Torch_2K_AO.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Wall_Torch_2K_Roughness.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Wall_Torch_2K_Displacement.exr" type="Texture" id=5]
+[ext_resource path="res://Assets/Wall_Torch_2K_Normal.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Smoke30Frames_0.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Fire.tres" type="Gradient" id=8]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 6
+particles_anim_v_frames = 5
+particles_anim_loop = true
+albedo_texture = ExtResource( 7 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = ExtResource( 8 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.140625, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+trail_divisor = 6
+emission_shape = 1
+emission_sphere_radius = 0.4
+direction = Vector3( 0, 1, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.1
+angular_velocity = 40.0
+angular_velocity_random = 1.0
+linear_accel = 4.0
+linear_accel_random = 1.0
+angle = 360.0
+angle_random = 1.0
+scale = 0.0
+scale_random = 0.33
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
+anim_speed = 1.0
+anim_offset = 1.0
+anim_offset_random = 1.0
+
+[sub_resource type="QuadMesh" id=6]
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_texture = ExtResource( 2 )
+roughness_texture = ExtResource( 4 )
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 6 )
+ao_enabled = true
+ao_light_affect = 0.0
+ao_texture = ExtResource( 3 )
+ao_on_uv2 = false
+ao_texture_channel = 0
+depth_enabled = true
+depth_scale = 0.05
+depth_deep_parallax = false
+depth_flip_tangent = false
+depth_flip_binormal = false
+depth_texture = ExtResource( 5 )
+
+[node name="Torch" type="Spatial"]
+
+[node name="Fire" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.102644, -0.074589, 0.202444 )
+
+[node name="Particles" type="Particles" parent="Fire"]
+transform = Transform( 0.101395, 0, 0, 0, 0.11369, 0, 0, 0, 0.0223459, 0.295172, 0.479075, -0.203848 )
+material_override = SubResource( 1 )
+amount = 200
+lifetime = 0.5
+randomness = 1.0
+visibility_aabb = AABB( -0.0995251, -0.631318, -0.379379, 0.19905, 1.26264, 0.758758 )
+local_coords = false
+draw_order = 2
+process_material = SubResource( 5 )
+draw_pass_1 = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
+material/0 = SubResource( 7 )
+
+[node name="OmniLight" type="OmniLight" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.231973, 0.479753, 0.00617172 )
+light_color = Color( 0.984314, 0.623529, 0, 1 )
+light_energy = 4.39
+omni_range = 2.03807
