@@ -96,5 +96,7 @@ material/0 = SubResource( 7 )
 [node name="OmniLight" type="OmniLight" parent="MeshInstance"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.231973, 0.479753, 0.00617172 )
 light_color = Color( 0.984314, 0.623529, 0, 1 )
-light_energy = 4.39
+light_energy = 4.84
+light_bake_mode = 2
+shadow_bias = 1.53
 omni_range = 2.03807

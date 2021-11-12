@@ -19,7 +19,7 @@ func get_input():
 		input_dir += -Camera.global_transform.basis.x
 	if Input.is_action_pressed("right"):
 		input_dir += Camera.global_transform.basis.x
-	if Input.is_action_just_pressed("test"):
+	if Input.is_action_just_pressed("flash"):
 		if $Pivot/SpotLight.is_visible():
 			$Pivot/SpotLight.hide()
 		else:
