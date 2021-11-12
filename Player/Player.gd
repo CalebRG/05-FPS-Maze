@@ -24,6 +24,8 @@ func get_input():
 			$Pivot/SpotLight.hide()
 		else:
 			$Pivot/SpotLight.show()
+	if Input.is_action_just_pressed("test"):
+		get_tree().reload_current_scene()
 	input_dir = input_dir.normalized()
 	return input_dir
 	
