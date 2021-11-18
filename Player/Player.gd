@@ -1,6 +1,9 @@
 extends KinematicBody
 
 onready var Camera = $Pivot/Camera
+onready var rc = $Pivot/RayCast
+onready var flash = $Pivot/Gun/Flash
+onready var Decal = preload("res://Player/Decal.tscn")
 
 var gravity = -30
 var max_speed = 8
@@ -45,6 +48,19 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector3.UP, true)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-
-func _on_Timer_script_changed():
-	pass # Replace with function body.
+	if Input.is_action_pressed("shoot") and !flash.visible:
+		flash.shoot()
+		var sound = get_node_or_null("/root/Game/GUN")
+		if sound != null:
+			sound.playing = true
+		if rc.is_colliding():
+			var c = rc.get_collider()
+			var decal = Decal.instance()
+			rc.get_collider().add_child(decal)
+			decal.global_transform.origin = rc.get_collision_point()
+			decal.look_at(rc.get_collision_point() + rc.get_collision_normal(), Vector3.UP)
+			if c.is_in_group("Enemy"):
+				sound = get_node_or_null("/root/Game/ZombieScreech")
+				if sound != null:
+					sound.playing = true
+				c.queue_free()

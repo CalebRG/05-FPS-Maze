@@ -33,13 +33,26 @@ var tiles = [
 	,preload("res://Maze/Tile15.tscn")
 ]
 
+var tile = 2
 var tile_size = 2
 var width = 20  # width of map (in tiles)
 var height = 12  # height of map (in tiles)
 
+onready var Exit = preload("res://Scripts/Exit.tscn")
+onready var Key = preload("res://Scripts/Key.tscn")
+
+
 func _ready():
 	randomize()
 	make_maze()
+	var exit = Exit.instance()
+	exit.translate(Vector3((width*tile)-1.5,0.1,(height*tile)-1.5))
+	add_child(exit)
+	print(exit.global_transform.origin)
+	var key = Key.instance()
+	key.translate(Vector3((width*tile)-1.5,1,0.5))
+	add_child(key)
+	print(key.global_transform.origin)
 	
 func check_neighbors(cell, unvisited):
 	# returns an array of cell's unvisited neighbors

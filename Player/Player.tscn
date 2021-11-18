@@ -1,10 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/shotgun.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://Gun/Gun.gd" type="Script" id=3]
-[ext_resource path="res://Gun/Bullet.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/5888c6febc2fc2ef3a1860d5.png" type="Texture" id=5]
+[ext_resource path="res://Player/Flash.gd" type="Script" id=3]
+[ext_resource path="res://fire.tres" type="Material" id=4]
+[ext_resource path="res://Assets/muzzleflash.obj" type="ArrayMesh" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -21,17 +21,6 @@ background_sky = SubResource( 3 )
 background_sky_custom_fov = 16.0
 ambient_light_color = Color( 0.278431, 0.278431, 0.278431, 1 )
 ambient_light_energy = 0.32
-
-[sub_resource type="SpatialMaterial" id=5]
-flags_transparent = true
-flags_use_shadow_to_opacity = true
-albedo_texture = ExtResource( 5 )
-emission_enabled = true
-emission = Color( 1, 0.709804, 0, 1 )
-emission_energy = 22.18
-emission_operator = 0
-emission_on_uv2 = false
-emission_texture = ExtResource( 5 )
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -54,24 +43,16 @@ current = true
 fov = 64.9
 
 [node name="SpotLight" type="SpotLight" parent="Pivot"]
-visible = false
 light_energy = 10.69
 spot_range = 8.22076
-spot_attenuation = 6.27667
+spot_attenuation = 8.87654
 spot_angle = 26.5449
+spot_angle_attenuation = 0.378929
 
 [node name="Gun" type="Spatial" parent="Pivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24099, -0.128487, -0.939766 )
-script = ExtResource( 3 )
-autofire = false
-listem_to_input = true
-fire_action_name = "shoot"
-bullet_res = ExtResource( 4 )
-muzzle_velocity = 250.0
-fire_rate = 4.0
 
-[node name="Gun" type="MeshInstance" parent="Pivot/Gun"]
-transform = Transform( -8, 6.99382e-07, 0, 6.99382e-07, 8, 6.99382e-07, 6.11419e-14, 6.99382e-07, -8, -0.00850104, -0.0341453, 0.502492 )
+[node name="Mesh" type="MeshInstance" parent="Pivot/Gun"]
+transform = Transform( -8, 6.99382e-07, 0, 6.99382e-07, 8, 6.99382e-07, 6.11419e-14, 6.99382e-07, -8, 0.232489, -0.162632, -0.437274 )
 mesh = ExtResource( 2 )
 material/0 = null
 material/1 = null
@@ -107,9 +88,24 @@ material/30 = null
 material/31 = null
 material/32 = null
 
-[node name="Sprite3D" type="Sprite3D" parent="Pivot/Gun"]
-transform = Transform( 0.0839043, -0.0040082, 0, 0.0040082, 0.0839043, 0, 0, 0, 0.084, 0.051, 0.009, 0.064 )
+[node name="Flash" type="Spatial" parent="Pivot/Gun"]
 visible = false
-material_override = SubResource( 5 )
-cast_shadow = 2
-texture = ExtResource( 5 )
+script = ExtResource( 3 )
+
+[node name="Timer" type="Timer" parent="Pivot/Gun/Flash"]
+wait_time = 0.1
+one_shot = true
+
+[node name="muzzleflash" type="MeshInstance" parent="Pivot/Gun/Flash"]
+transform = Transform( 0.501, 0, 0, 0, 0.501, 0, 0, 0, 0.501, 0.281209, -0.227428, -1.01943 )
+mesh = ExtResource( 5 )
+material/0 = ExtResource( 4 )
+material/1 = ExtResource( 4 )
+material/2 = ExtResource( 4 )
+
+[node name="RayCast" type="RayCast" parent="Pivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.119, -0.512 )
+enabled = true
+cast_to = Vector3( 0, 0, -30 )
+
+[connection signal="timeout" from="Pivot/Gun/Flash/Timer" to="Pivot/Gun/Flash" method="_on_Timer_timeout"]

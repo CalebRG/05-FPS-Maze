@@ -15,7 +15,6 @@ func _physics_process(delta):
 		if result.collider.is_in_group("Player"):
 			look_at(target.global_transform.origin, Vector3.UP)
 			$AnimationPlayer.play("Run")
-			move_to_target(delta)
 		else:
 			$AnimationPlayer.play("Idle")
 
@@ -36,12 +35,9 @@ func move_to_target(delta):
 	var direction = (target.transform.origin - transform.origin).normalized()
 	move_and_slide(direction * speed * delta, Vector3.UP)
 	
+	
 func set_color_red():
 	null
 
 func set_color_green():
 	null
-
-func _on_Killzone_body_entered(body):
-	if body.is_in_group("Bullet"):
-		queue_free()

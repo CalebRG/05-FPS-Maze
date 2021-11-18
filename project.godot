@@ -30,6 +30,15 @@ config/name="05- Fps- Maze"
 run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://Global.gd"
+
+[global]
+
+single=false
+singleton=false
+
 [input]
 
 forward={
