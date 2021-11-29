@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Maze/rock.tres" type="Material" id=1]
 [ext_resource path="res://Assets/WoodFloor043_2K_Displacement.png" type="Texture" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://Assets/WoodFloor043_2K_Color.png" type="Texture" id=5]
 [ext_resource path="res://Assets/WoodFloor043_2K_NormalGL.png" type="Texture" id=6]
 [ext_resource path="res://Assets/WoodFloor043_2K_Roughness.png" type="Texture" id=7]
-[ext_resource path="res://Enemy/Enemy.tscn" type="PackedScene" id=8]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.756863, 0.592157, 0.592157, 1 )
@@ -79,6 +78,3 @@ use_collision = true
 height = 3.0
 depth = 0.1
 material = ExtResource( 1 )
-
-[node name="Enemy" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.308, 0, 0, 0, 0.308, 0, 0, 0, 0.308, 0, 0.792934, 0 )

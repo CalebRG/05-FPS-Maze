@@ -41,3 +41,10 @@ func set_color_red():
 
 func set_color_green():
 	null
+
+
+
+
+func _on_Killzone_body_entered(body):
+	if body.is_in_group("Player"):
+		get_tree().change_scene("res://Menu/Death.tscn")

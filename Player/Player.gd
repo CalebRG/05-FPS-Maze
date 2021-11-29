@@ -48,7 +48,7 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector3.UP, true)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-	if Input.is_action_pressed("shoot") and !flash.visible:
+	if Input.is_action_just_pressed("shoot") and !flash.visible:
 		flash.shoot()
 		var sound = get_node_or_null("/root/Game/GUN")
 		if sound != null:
