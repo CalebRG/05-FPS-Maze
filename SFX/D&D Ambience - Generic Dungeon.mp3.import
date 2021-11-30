@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/D&D Ambience - Generic Dungeon.mp3-14e7c9b6f86f8bcba345ba68078fc9d6.mp3str"
+
+[deps]
+
+source_file="res://SFX/D&D Ambience - Generic Dungeon.mp3"
+dest_files=[ "res://.import/D&D Ambience - Generic Dungeon.mp3-14e7c9b6f86f8bcba345ba68078fc9d6.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

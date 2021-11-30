@@ -27,8 +27,6 @@ func get_input():
 			$Pivot/SpotLight.hide()
 		else:
 			$Pivot/SpotLight.show()
-	if Input.is_action_just_pressed("test"):
-		get_tree().reload_current_scene()
 	input_dir = input_dir.normalized()
 	return input_dir
 	
@@ -60,7 +58,7 @@ func _physics_process(delta):
 			decal.global_transform.origin = rc.get_collision_point()
 			decal.look_at(rc.get_collision_point() + rc.get_collision_normal(), Vector3.UP)
 			if c.is_in_group("Enemy"):
-				sound = get_node_or_null("/root/Game/ZombieScreech")
+				sound = get_node_or_null("/root/Game/Death")
 				if sound != null:
 					sound.playing = true
 				c.queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/shotgun.obj" type="ArrayMesh" id=2]
@@ -22,11 +22,14 @@ sky_top_color = Color( 0.129412, 0.129412, 0.129412, 1 )
 sky_horizon_color = Color( 0.113725, 0.121569, 0.12549, 1 )
 
 [sub_resource type="Environment" id=4]
+background_mode = 1
 background_sky = SubResource( 3 )
 background_sky_custom_fov = 16.0
+background_color = Color( 0.0585938, 0.0585938, 0.0585938, 1 )
 ambient_light_color = Color( 0.278431, 0.278431, 0.278431, 1 )
 ambient_light_energy = 0.32
 fog_enabled = true
+fog_depth_curve = 1.0
 
 [sub_resource type="SpatialMaterial" id=5]
 albedo_texture = ExtResource( 8 )
@@ -37,10 +40,53 @@ normal_enabled = true
 normal_scale = 1.0
 normal_texture = ExtResource( 7 )
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="Animation" id=11]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "Shoot"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.232489, -0.144535, -0.527247 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 30.67, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="SpatialMaterial" id=13]
 albedo_color = Color( 0.811765, 0, 0, 1 )
 
-[sub_resource type="VisualShader" id=7]
+[sub_resource type="VisualShader" id=9]
 code = "shader_type spatial;
 render_mode specular_schlick_ggx;
 
@@ -63,8 +109,8 @@ void light() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=8]
-shader = SubResource( 7 )
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -87,8 +133,8 @@ current = true
 fov = 64.9
 
 [node name="SpotLight" type="SpotLight" parent="Pivot"]
-light_energy = 10.69
-spot_range = 8.22076
+light_energy = 12.65
+spot_range = 14.8
 spot_attenuation = 8.87654
 spot_angle = 26.5449
 spot_angle_attenuation = 0.378929
@@ -111,12 +157,16 @@ material/8 = null
 material/9 = null
 material/10 = null
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pivot/Gun/Mesh"]
+anims/Idle = SubResource( 11 )
+anims/Shoot = SubResource( 12 )
+
 [node name="Mesh2" type="MeshInstance" parent="Pivot/Gun"]
 transform = Transform( -8, 6.99382e-07, 0, 6.99382e-07, 8, 6.99382e-07, 6.11419e-14, 6.99382e-07, -8, 0.232489, -0.162632, -0.437274 )
 visible = false
-material_override = SubResource( 6 )
+material_override = SubResource( 13 )
 mesh = ExtResource( 2 )
-material/0 = SubResource( 8 )
+material/0 = SubResource( 10 )
 material/1 = null
 material/2 = null
 material/3 = null
