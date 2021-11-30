@@ -1,6 +1,5 @@
 # Mazer
 Mazer
-Caleb Good
 
 Description
 A procedural generated maze with enemies, win by finding the key and finding the escape.
