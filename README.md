@@ -1,4 +1,4 @@
-# Project Name
+# Mazer
 Mazer
 Caleb Good
 
