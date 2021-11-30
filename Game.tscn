@@ -92,7 +92,6 @@ text = "Quit"
 [node name="GUN" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 volume_db = -14.829
-mix_target = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )

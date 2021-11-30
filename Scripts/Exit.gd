@@ -11,4 +11,4 @@ func unlock():
 	
 func _on_Exit_body_entered(body):
 	if body.name == "Player" and not locked:
-		queue_free()
+		var _target = get_tree().change_scene("res://Menu/Win.tscn")

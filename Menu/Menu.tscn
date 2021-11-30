@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Menu/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Menu/menu.png" type="Texture" id=2]
+[ext_resource path="res://Assets/FFFFORWA.TTF" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+outline_size = 1
+font_data = ExtResource( 3 )
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -34,6 +40,23 @@ margin_top = 465.331
 margin_right = 423.183
 margin_bottom = 554.331
 text = "Quit"
+
+[node name="Label" type="Label" parent="."]
+margin_left = 559.0
+margin_top = 295.0
+margin_right = 1015.0
+margin_bottom = 644.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "CONTROLS
+
+WASD - Walk
+Left Click - Shoot
+F - Flashlight
+ESC - Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
